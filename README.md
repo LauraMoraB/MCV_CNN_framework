@@ -1,45 +1,20 @@
 # CNN framework for PyTorch
+# M5 Project: Scene Understanding for Autonomous Vehicles
 
-The following repository contains a functional framework to perform different deep learning tasks like Classification, Semantic segmentation and Domain adaptation.
+The goal of this project is to learn the basic concepts and techniques to build deep neural networks to detect, segment and recognize specific objects, focusing on the self-driving car application. With the aim to solve the problem of automatic image understanding, the tasks performed include object recognition, detection and semantic segmentation in images recorded by an on-board vehicle camera.
 
-## Actually in development
-- Classification (functional)
-    - Model: VGG16
-- Semantic segmentation (functional)
-    - Model: FCN8, DenseNetFCN (Tiramisú)
-- Object Detection (not implemented yet)
-- Domain Adaptation (not implemented yet)
+## Team members
+* Daniel Azemar ([daniel.azemar@e-campus.uab.cat](mailto:daniel.azemar@e-campus.uab.cat))
+* María Gil Aragones ([maria.gilaragones@gmail.com](mailto:maria.gilaragones@gmail.com))
+* Laura Mora Ballestar ([lmoraballestar@gmail.com](mailto:lmoraballestar@gmail.com))
+* Richard Segovia ([richard.segovia@e-campus.uab.cat](mailto:richard.segovia@e-campus.uab.cat))
 
-### Functionalities implemented:
-- Train, validation and test in one run using a proper configuration.
-- Early stopping with model saving control via different metrics
-- TensorBoardX support (with confusion matrix display)
-- Configuration file to run experiments easily [ConfigFile](https://github.com/gvillalonga89/CNN_framework_PyTorch_private/tree/master/config)
-- Metrics: mean accuracy, mean IoU
-- Dataloader on GPU
-- Training scheduler
-- Train Progress bar
-- Auto downloadable pretrained models from ImageNet
 
-### How to run it
-- Configure the configuration file in config/ConfigFile.py
-- Run code using: CUDA_VISIBLE_DEVICES=[gpu_number] python main.py --exp_name [experiment_name] 
-  --exp_folder [path_to_save_experiment] --config_file [path_to_config_file]
-  You can also add any variable from the config file, just using --[var name] [value], the parameter given by argument will overwrite the value from the config file.
-  
-### Requirements
- - Python 2.7
- - PyTorch 0.3.0 (https://pytorch.org/)
- - Scipy 1.0.0
- - Numpy 1.13.3
- - OpenCV 3.0
- - wget
- - tensorboardx
- ### Requirements Installation
-```
-$ pip install requirements.txt -r --user
-```
-  
-### Actual limitations
-- Datasets are defined in txt files, one for images and gt files for each instance of training validation and test. The txt file must contain the path to the image and have the same line order per image respect to the gt file. This files path must be defined in the ConfigFile.py
-- Multi-GPU is not supported yet.
+## Report
+
+[Overleaf link]
+
+## Related publications
+
+###VGG
+###[Others]
