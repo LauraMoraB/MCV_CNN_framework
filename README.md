@@ -12,7 +12,7 @@ The goal of this project is to learn the basic concepts and techniques to build 
 
 ## Report
 
-[Overleaf link]
+[Overleaf Read-Access link](https://www.overleaf.com/read/jdhgqqrhcgjj)
 
 ## Related publications
 
