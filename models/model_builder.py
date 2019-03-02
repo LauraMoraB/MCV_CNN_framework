@@ -21,6 +21,7 @@ from models.scheduler.scheduler_builder import scheduler_builder
 from utils.statistics import Statistics
 from utils.ssd_box_coder import SSDBoxCoder
 
+
 class Model_builder():
     def __init__(self, cf):
         self.cf = cf

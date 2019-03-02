@@ -10,10 +10,10 @@ from utils.transformations.flip import RandomHorizontalFlipSegSem, RandomHorizon
 from utils.transformations.random_distort import Random_distort
 from utils.transformations.composition import ComposeSemSeg, ComposeObjDet, ComposeResize
 from utils.transformations.resize import Resize
-from fromFileDatasetSegmentation import fromFileDatasetSegmentation
-from fromFileDatasetClassification import fromFileDatasetClassification
-from fromFileDatasetDetection import fromFileDatasetDetection
-from fromFileDatasetToPredict import fromFileDatasetToPredict
+from .fromFileDatasetSegmentation import fromFileDatasetSegmentation
+from .fromFileDatasetClassification import fromFileDatasetClassification
+from .fromFileDatasetDetection import fromFileDatasetDetection
+from .fromFileDatasetToPredict import fromFileDatasetToPredict
 
 class Dataloader_Builder(object):
     def __init__(self, cf, model):
