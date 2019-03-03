@@ -15,5 +15,5 @@ The goal of this project is to learn the basic concepts and techniques to build 
 
 ## Related publications
 
-* [VGG](papers/vgg.md)
-* [...]
+* [VGG](papers/VGG.md)
+* [MobileNet](papers/MobileNet.md)
