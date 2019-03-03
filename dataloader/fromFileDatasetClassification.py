@@ -31,7 +31,7 @@ class fromFileDatasetClassification(Data_loader):
         else:
             print(cf.map_labels)
             self.gt = [int(cf.map_labels[line]) for line in lines]
-            print("labels",self.gt)
+            # print("labels",self.gt)
 
         if len(self.gt) != len(self.image_names):
             raise ValueError('number of images != number GT images')
