@@ -41,35 +41,36 @@ class ProgressBar:
         :param is_updated: Bool. True if the step has to increase. True by default
         :param show: Bool. True if the progress bar has to be displayed after the update. True by default.
         '''
-        if self.__step <= self.__nSteps:
-            if loss is not None:
-                self.__loss = loss
-            its = self.__updateTimes()
-            progress_msg = self.__funcMsg(its)
-            if show:
-
-                msg_endl = progress_msg.split('\n')
-
-                msg_list = msg_endl
-                msg_lens = len(msg_list)
-                msg_list, msg_lens = self.__split_msg(msg_endl)
-                self.__remove_last_msg()
-
-                for msg in msg_list:
-                    sys.stdout.write(msg)
-                    # print(msg)
-                sys.stdout.flush()
-                self.__lastLens = msg_lens
-
-                if self.__step == self.__nSteps:
-                    print ('')
-
-            if is_updated:
-                self.__step = self.__step + 1
-        else:
-            print (self.__step)
-            print (self.__nSteps)
-            print ('WARNING: Progress Bar step is major than the limit established')
+        pass
+        # if self.__step <= self.__nSteps:
+        #     if loss is not None:
+        #         self.__loss = loss
+        #     its = self.__updateTimes()
+        #     progress_msg = self.__funcMsg(its)
+        #     if show:
+        #
+        #         msg_endl = progress_msg.split('\n')
+        #
+        #         msg_list = msg_endl
+        #         msg_lens = len(msg_list)
+        #         msg_list, msg_lens = self.__split_msg(msg_endl)
+        #         self.__remove_last_msg()
+        #
+        #         for msg in msg_list:
+        #             sys.stdout.write(msg)
+        #             # print(msg)
+        #         sys.stdout.flush()
+        #         self.__lastLens = msg_lens
+        #
+        #         if self.__step == self.__nSteps:
+        #             print ('')
+        #
+        #     if is_updated:
+        #         self.__step = self.__step + 1
+        # else:
+        #     print (self.__step)
+        #     print (self.__nSteps)
+        #     print ('WARNING: Progress Bar step is major than the limit established')
 
     def finish_progress(self):
         '''
@@ -95,7 +96,10 @@ class ProgressBar:
         list_msgs = []
         list_lens = []
 
-        rows, columns = os.popen('stty size', 'r').read().split()
+        # rows, columns = os.popen('stty size', 'r').read().split()
+        rows = 20
+        columns = 20
+
         columns = int(columns) - 1
 
         for msg in msg_endl:

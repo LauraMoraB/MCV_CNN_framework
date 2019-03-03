@@ -25,11 +25,13 @@ class fromFileDatasetClassification(Data_loader):
             gt = f.readlines()
         # remove whitespace characters like `\n` at the end of each line
         lines = [x.strip() for x in gt]
+        # print(lines)
         if cf.map_labels is None:
             self.gt = [int(line) for line in lines]
         else:
             print(cf.map_labels)
             self.gt = [int(cf.map_labels[line]) for line in lines]
+            print("labels",self.gt)
 
         if len(self.gt) != len(self.image_names):
             raise ValueError('number of images != number GT images')

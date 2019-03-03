@@ -1,4 +1,6 @@
-*.pyc 
-*/*.pyc 
-config/tmp_* 
+*.pyc
+*/*.pyc
+config/tmp_*
 .idea/
+/models/
+/pretrained_model/
