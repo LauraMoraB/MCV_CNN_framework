@@ -9,6 +9,7 @@ class VGG16(Net):
 
     def __init__(self, cf, num_classes=21, pretrained=False, net_name='vgg16'):
         super(VGG16, self).__init__(cf)
+        print("Startuing VGG!")
 
         self.url = 'http://datasets.cvc.uab.es/models/pytorch/basic_vgg16.pth'
         self.pretrained = pretrained
@@ -70,12 +71,11 @@ class VGG16(Net):
             nn.Linear(4096, num_classes)
         )
 
-        '''if pretrained:
-            self.load_basic_weights(net_name)
-        else:
-            self._initialize_weights()'''
+        # if(not pretrained):
+        #     self._initialize_weights()
 
     def forward(self, x):
+        print("VGG!")
         x = self.features(x)
         x = x.view(x.size(0), -1)
         x = self.classifier(x)
