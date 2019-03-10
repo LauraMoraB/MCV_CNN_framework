@@ -42,7 +42,7 @@ Two networks have been created, which can be found in: ```models/networks/classi
 
 #### Results 
 
-The following table shows the results obtained from the different tasks:
+The following table shows the results obtained from the different tasks. We have used two networks, the well known **VGG16** and our own CNN, **MiniNet**. The experiments have been done using the following datasets: [TT100k](https://cg.cs.tsinghua.edu.cn/traffic-sign/), [BelgiumTSC](https://btsd.ethz.ch/shareddata/) and [KITTI](http://www.cvlibs.net/datasets/kitti/).
 
 | Network |       Experiment     | TT100K  |        | Belgium |        | KITTI   |        |
 |---------|----------------------|---------|--------|---------|--------|---------|--------|
