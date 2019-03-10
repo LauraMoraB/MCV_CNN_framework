@@ -2,5 +2,4 @@
 */*.pyc
 config/tmp_*
 .idea/
-/models/
 /pretrained_model/
