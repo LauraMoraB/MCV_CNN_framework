@@ -14,6 +14,7 @@ class Classification_Manager(SimpleTrainer):
         super(Classification_Manager, self).__init__(cf, model)
 
     class train(SimpleTrainer.train):
+
         def __init__(self, logger_stats, model, cf, validator, stats, msg):
             super(Classification_Manager.train, self).__init__(logger_stats, model, cf, validator, stats, msg)
             if self.cf.resume_experiment:
@@ -23,12 +24,12 @@ class Classification_Manager(SimpleTrainer):
                             100 * self.model.best_stats.val.recall, 100 * self.model.best_stats.val.f1score,
                             self.model.best_stats.val.loss)
 
-        def validate_epoch(self, valid_set, valid_loader, early_Stopping, epoch, global_bar):
+        def validate_epoch(self, valid_set, valid_loader, early_Stopping, epoch):
             if valid_set is not None and valid_loader is not None:
                 # Set model in validation mode
                 self.model.net.eval()
 
-                self.validator.start(valid_set, valid_loader, 'Epoch Validation', epoch, global_bar=global_bar)
+                self.validator.start(valid_set, valid_loader, 'Epoch Validation', epoch)
 
                 # Early stopping checking
                 if self.cf.early_stopping:
@@ -42,36 +43,23 @@ class Classification_Manager(SimpleTrainer):
 
         def compute_stats(self, confm_list, train_loss):
             TP_list, TN_list, FP_list, FN_list = extract_stats_from_confm(confm_list)
-            mean_accuracy = compute_accuracy(TP_list, TN_list, FP_list, FN_list)
-            mean_precision = compute_precision(TP_list,FP_list)
-            mean_recall = compute_recall(TP_list,FN_list)
-            mean_f1score = compute_f1score(TP_list,FP_list,FN_list)
-            self.stats.train.acc = np.nanmean(mean_accuracy)
-            self.stats.train.recall= np.nanmean(mean_recall)
-            self.stats.train.precision = np.nanmean(mean_precision)
-            self.stats.train.f1score = np.nanmean(mean_f1score)
+
+            TP = np.sum(TP_list)
+            TN = np.sum(TN_list)
+            FP = np.sum(FP_list)
+            FN = np.sum(FN_list)
+
+            precision = TP / (TP + FP)
+            recall = TP / (TP + FN)
+
+            self.stats.train.acc = (TP + TN) / (TP + TN + FP + FN)
+            self.stats.train.recall = recall
+            self.stats.train.precision = precision
+
+            print("VAL results: accuracy", self.stats.train.acc, "precision", precision, "recall", recall)
+            self.stats.train.f1score = 2 * (recall * precision) / (recall + precision)
             if train_loss is not None:
                 self.stats.train.loss = train_loss.avg
-
-        def update_messages(self, epoch, epoch_time, new_best):
-            # Update logger
-            epoch_time = time.time() - epoch_time
-            self.logger_stats.write('\t Epoch step finished: %ds \n' % (epoch_time))
-
-            # Compute best stats
-            self.msg.msg_stats_last = '\nLast epoch: acc= %.2f, precision= %.2f, recall= %.2f, ' \
-                                      'f1score= %.2f, loss = %.5f\n' % (100 * self.stats.val.acc,
-                                        100 * self.stats.val.precision, 100 * self.stats.val.recall,
-                                        100 * self.stats.val.f1score, self.stats.val.loss)
-            if new_best:
-                self.msg.msg_stats_best = 'Best case: epoch = %d, acc= %.2f, precision= %.2f, recall= %.2f, ' \
-                                          'f1score= %.2f, loss = %.5f\n' % (
-                                        epoch, 100 * self.stats.val.acc, 100 * self.stats.val.precision,
-                                        100 * self.stats.val.recall, 100 * self.stats.val.f1score, self.stats.val.loss)
-                self.best_f1score = self.stats.val.f1score
-
-                # msg_confm = self.stats.val.get_confm_str()
-                # self.msg.msg_stats_best = self.msg.msg_stats_best + '\nConfusion matrix:\n' + msg_confm
 
         def save_stats_epoch(self, epoch):
             # Save logger
@@ -93,14 +81,21 @@ class Classification_Manager(SimpleTrainer):
 
         def compute_stats(self, confm_list, val_loss):
             TP_list, TN_list, FP_list, FN_list = extract_stats_from_confm(confm_list)
-            mean_accuracy = compute_accuracy(TP_list, TN_list, FP_list, FN_list)
-            mean_precision = compute_precision(TP_list,FP_list)
-            mean_recall = compute_recall(TP_list,FN_list)
-            mean_f1score = compute_f1score(TP_list,FP_list,FN_list)
-            self.stats.val.acc = np.nanmean(mean_accuracy)
-            self.stats.val.recall= np.nanmean(mean_recall)
-            self.stats.val.precision = np.nanmean(mean_precision)
-            self.stats.val.f1score = np.nanmean(mean_f1score)
+
+            TP = np.sum(TP_list)
+            TN = np.sum(TN_list)
+            FP = np.sum(FP_list)
+            FN = np.sum(FN_list)
+
+            precision = TP / (TP + FP)
+            recall = TP / (TP + FN)
+
+            self.stats.val.acc = (TP + TN) / (TP + TN + FP + FN)
+            self.stats.val.recall = recall
+            self.stats.val.precision = precision
+
+            print("VAL results: accuracy", self.stats.val.acc, "precision", precision, "recall", recall)
+            self.stats.val.f1score = 2 * (recall * precision) / (recall + precision)
             if val_loss is not None:
                 self.stats.val.loss = val_loss.avg
 
@@ -131,21 +126,6 @@ class Classification_Manager(SimpleTrainer):
                         100 * self.stats.val.recall, 100 * self.stats.val.f1score))
                 self.logger_stats.write('---------------------------------------------------------------- \n')
 
-        def update_msg(self, bar, global_bar):
-
-            self.compute_stats(np.asarray(self.stats.val.conf_m), None)
-            bar.set_msg(', acc: %.02f, precision: %.02f, recall: %.02f f1score: %.02f' % (100.*self.stats.val.acc,
-                                                            100.*self.stats.val.precision, 100.*self.stats.val.recall,
-                                                            100.*self.stats.val.f1score))
-
-            if global_bar==None:
-                # Update progress bar
-                bar.update()
-            else:
-                self.msg.eval_str = '\n' + bar.get_message(step=True)
-                global_bar.set_msg(self.msg.accum_str + self.msg.last_str + self.msg.msg_stats_last + \
-                                   self.msg.msg_stats_best + self.msg.eval_str)
-                global_bar.update()
 
     class predict(SimpleTrainer.predict):
         def __init__(self, logger_stats, model, cf):
