@@ -37,7 +37,6 @@ def confm_metrics2image(conf_matrix, names=None):
                vmax=1.0)
     plt.colorbar()
     plt.title('Confusion Matrix')
-    print("ha pasao!")
     plt.xticks(range(nLabels), plt_names, rotation=90)
     ystick = list(zip(plt_names, [conf_matrix[i][i] for i in range(nLabels)]))
     ystick_str = [str(ystick[i][0]) + '(%.2f)' % ystick[i][1] for i in range(nLabels)]
@@ -55,7 +54,9 @@ def confm_metrics2image(conf_matrix, names=None):
     # data = np.asarray(bytearray(img.buf), dtype=np.uint8)
     data = np.fromstring(img.getvalue(), dtype=np.uint8)
     im = cv.imdecode(data, cv.IMREAD_UNCHANGED)[:, :, 0:3]
-
+    print('Saving confussion matrix')
+    img_file_path = "/home/grupo08/M5/results/conf_matrix_image.png"
+    cv.imwrite(img_file_path, im)
     return im[..., ::-1]
 
 
