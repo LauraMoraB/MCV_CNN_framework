@@ -85,3 +85,6 @@ python3 main.py --exp_name dir_name --exp_folder ./ --config_file config/configF
 
 * [VGG](papers/VGG.md)
 * [MobileNet](papers/MobileNet.md)
+
+## Weights Folder
+* [Link](https://drive.google.com/open?id=17LFUYLuT5L88yXYYbTEKMBGbbyaRkgea)
