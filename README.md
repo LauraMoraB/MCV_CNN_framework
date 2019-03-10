@@ -42,7 +42,15 @@ Two networks have been created, which can be found in: ```models/networks/classi
 
 #### Results 
 
-Table with Results....
+The following table shows the results obtained from the different tasks:
+
+| Network |       Experiment     | TT100K  |        | Belgium |        | KITTI   |        |
+|---------|----------------------|---------|--------|---------|--------|---------|--------|
+|         |                      | **Val** |**Test**| **Val** |**Test**| **Val** |**Test**|
+| VGG16   | Basic(ImageNet)      | 89,32   |  96.06 |  96.22  | 95.22  |  98.37  | -      |
+| VGG16   | FineTune with TT100K | -       |  -     |  96.39  | 96.39  |  97.84  | -      |
+| VGG16   | From scratch         | -       |  -     |   -     | -      |  97.30  | -      |
+| MiniNet | From scratch         | 84.46   |  92.32 |  90.27  | 90.28  |  92.48  | -      |
 
 ## Get Started
 
