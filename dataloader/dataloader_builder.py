@@ -47,7 +47,7 @@ class Dataloader_Builder(object):
                                                       transform=self.train_transformation,
                                                       box_coder=self.model.box_coder,
                                                       resize_process=self.resize)
-        self.train_loader = DataLoader(self.train_set, batch_size=self.cf.train_batch_size, num_workers=8)
+        self.train_loader = DataLoader(self.train_set, batch_size=self.cf.train_batch_size, num_workers=4)
 
     def build_valid(self, valid_samples, images_txt, gt_txt, resize_image, batch_size):
         if self.cf.problem_type == 'segmentation':

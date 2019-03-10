@@ -20,6 +20,7 @@ class Net(nn.Module):
         pass
 
     def initialize_weights(self):
+        print("Inicilizacion sin _")
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
                 m.weight.data.zero_()

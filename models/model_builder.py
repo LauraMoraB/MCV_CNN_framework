@@ -14,6 +14,7 @@ from models.networks.segmentation.deeplabv2_resnet import MS_Deeplab
 from models.networks.detection.ssd import SSD300
 from models.networks.detection.ssd import SSD512
 from models.networks.classification.VGG16 import VGG16
+from models.networks.classification.mini_net import Mini_net
 # from models.networks.detection.rpn import RPN
 from models.loss.loss_builder import Loss_Builder
 from models.optimizer.optimizer_builder import Optimizer_builder
@@ -30,7 +31,7 @@ class Model_builder():
         self.optimizer = None
         self.scheduler = None
         self.best_stats = Statistics()
-        
+
     def build(self):
         # custom model
         if self.cf.pretrained_model.lower() == 'custom' and not self.cf.load_weight_only:
@@ -40,7 +41,7 @@ class Model_builder():
         if self.cf.model_type.lower() == 'densenetfcn':
             self.net = FCDenseNet(self.cf, nb_layers_per_block=self.cf.model_layers,
                                 growth_rate=self.cf.model_growth,
-                                nb_dense_block=self.cf.model_blocks, 
+                                nb_dense_block=self.cf.model_blocks,
                                 n_channel_start=48,
                                 n_classes=self.cf.num_classes,
                                 drop_rate=0, bottle_neck=False).cuda()
@@ -66,6 +67,8 @@ class Model_builder():
         # classification networks
         elif self.cf.model_type.lower() == 'vgg16':
             self.net = VGG16(self.cf, num_classes=self.cf.num_classes, pretrained=self.cf.basic_pretrained_model).cuda()
+        elif self.cf.model_type.lower() == 'mini_net':
+            self.net = Mini_net(self.cf, num_classes=self.cf.num_classes, pretrained=self.cf.basic_pretrained_model).cuda()
         else:
             raise ValueError('Unknown model')
 
@@ -159,7 +162,3 @@ class Model_builder():
         stats.recall_perclass = dict_stats['recall_perclass']
         stats.f1score_perclass = dict_stats['f1score_perclass']
         return stats
-        
-
-
-                   
