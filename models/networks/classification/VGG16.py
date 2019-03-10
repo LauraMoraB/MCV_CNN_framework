@@ -82,7 +82,7 @@ class VGG16(Net):
 
         return x
 
-    def _initialize_weights(self):
+    def initialize_weights(self):
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
                 n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
