@@ -144,7 +144,8 @@ class SimpleTrainer(object):
                     self.save_stats_batch((epoch - 1) * self.train_num_batches + i)
 
                     # Update epoch messages
-                    #self.update_epoch_messages(epoch_bar, self.global_bar, self.train_num_batches, epoch, i)
+                    if not self.cf.silent:
+                        self.update_epoch_messages(epoch_bar, self.global_bar, self.train_num_batches, epoch, i)
 
         def save_stats_epoch(self, epoch):
             # Save logger
@@ -256,7 +257,8 @@ class SimpleTrainer(object):
                                         valid_set.num_images)
 
                 # Update messages
-                #self.update_msg(bar, global_bar)
+                if not self.cf.silent:
+                    self.update_msg(bar, global_bar)
 
         def update_tensorboard(self,inputs,gts,predictions,epoch,indexes,val_len):
             pass

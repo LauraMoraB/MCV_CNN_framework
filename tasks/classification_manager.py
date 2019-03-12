@@ -24,7 +24,7 @@ class Classification_Manager(SimpleTrainer):
                             100 * self.model.best_stats.val.recall, 100 * self.model.best_stats.val.f1score,
                             self.model.best_stats.val.loss)
 
-        def validate_epoch(self, valid_set, valid_loader, early_Stopping, epoch):
+        def validate_epoch(self, valid_set, valid_loader, early_stopping, epoch):
             if valid_set is not None and valid_loader is not None:
                 # Set model in validation mode
                 self.model.net.eval()
@@ -33,9 +33,8 @@ class Classification_Manager(SimpleTrainer):
 
                 # Early stopping checking
                 if self.cf.early_stopping:
-                    early_Stopping.check(self.stats.train.loss, self.stats.val.loss, self.stats.val.mIoU,
-                                         self.stats.val.acc)
-                    if early_Stopping.stop == True:
+                    if early_stopping.check(self.stats.train.loss, self.stats.val.loss, self.stats.val.mIoU,
+                                            self.stats.val.acc, self.stats.val.f1score):
                         self.stop = True
 
                 # Set model in training mode
@@ -52,7 +51,7 @@ class Classification_Manager(SimpleTrainer):
             precision = TP / (TP + FP)
             recall = TP / (TP + FN)
 
-            self.stats.train.acc = (TP + TN) / (TP + TN + FP + FN)
+            self.stats.train.acc = np.sum(TP_list)/(np.sum(FP_list)+np.sum(TP_list))
             self.stats.train.recall = recall
             self.stats.train.precision = precision
 
@@ -90,7 +89,7 @@ class Classification_Manager(SimpleTrainer):
             precision = TP / (TP + FP)
             recall = TP / (TP + FN)
 
-            self.stats.val.acc = (TP + TN) / (TP + TN + FP + FN)
+            self.stats.val.acc = np.sum(TP_list)/(np.sum(FP_list)+np.sum(TP_list))
             self.stats.val.recall = recall
             self.stats.val.precision = precision
 
