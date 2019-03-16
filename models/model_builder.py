@@ -6,6 +6,7 @@ import copy
 
 sys.path.append('../')
 from models.networks.segmentation.FCN8 import FCN8
+from models.networks.segmentation.SegNet import SegNet
 from models.networks.segmentation.FCN8AtOnce import FCN8AtOnce
 from models.networks.segmentation.FCdenseNetTorch import FCDenseNet
 from models.networks.segmentation.DeepLabv3plus import DeepLabv3_plus
@@ -55,6 +56,9 @@ class Model_builder():
             self.net = DeepLabv3_xception(self.cf, n_classes=self.cf.num_classes, pretrained=self.cf.basic_pretrained_model).cuda()
         elif self.cf.model_type.lower() == 'deeplabv2':
             self.net = MS_Deeplab(self.cf, n_classes=self.cf.num_classes, pretrained=self.cf.basic_pretrained_model).cuda()
+        elif self.cf.model_type.lower() == 'segnet':
+            self.net = SegNet(self.cf, num_classes=self.cf.num_classes, pretrained=self.cf.basic_pretrained_model).cuda()
+
         # object detection networks
         # elif self.cf.model_type.lower() == 'rpn':
         #     self.net = RPN(self.cf, 512)
