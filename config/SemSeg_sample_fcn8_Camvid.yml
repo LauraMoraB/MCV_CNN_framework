@@ -61,12 +61,12 @@ grayscale                   : False
 
 # Dataset properties
 
-train_images_txt: '/home/mcv/datasets/M5/segmentation/camvid/train_images.txt'
-train_gt_txt: '/home/mcv/datasets/M5/segmentation/camvid/train_labels.txt'
-valid_images_txt: '/home/mcv/datasets/M5/segmentation/camvid/val_images.txt'
-valid_gt_txt: '/home/mcv/datasets/M5/segmentation/camvid/val_labels.txt'
-test_images_txt: '/home/mcv/datasets/M5/segmentation/camvid/test_images.txt'
-test_gt_txt: '/home/mcv/datasets/M5/segmentation/camvid/test_labels.txt'
+train_images_txt:   '/home/mcv/datasets/M5/segmentation/camvid/train_images.txt'
+train_gt_txt:       '/home/mcv/datasets/M5/segmentation/camvid/train_labels.txt'
+valid_images_txt:   '/home/mcv/datasets/M5/segmentation/camvid/val_images.txt'
+valid_gt_txt:       '/home/mcv/datasets/M5/segmentation/camvid/val_labels.txt'
+test_images_txt:    '/home/mcv/datasets/M5/segmentation/camvid/test_images.txt'
+test_gt_txt:        '/home/mcv/datasets/M5/segmentation/camvid/test_labels.txt'
 
 labels                      : !!python/tuple ['sky', 'building', 'column_pole', 'road', 'sidewalk', 'tree', 'sign', 'fence', 'car', 'pedestrian', 'byciclist']
 map_labels                  : null

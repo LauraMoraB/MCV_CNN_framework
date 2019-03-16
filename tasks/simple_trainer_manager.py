@@ -9,7 +9,7 @@ from torch.autograd import Variable
 from tqdm import tqdm
 
 sys.path.append('../')
-from utils.tools import AverageMeter, Early_Stopping
+from utils.tools import AverageMeter, EarlyStopping
 from utils.ProgressBar import ProgressBar
 from utils.logger import Logger
 from utils.statistics import Statistics
@@ -54,9 +54,9 @@ class SimpleTrainer(object):
                                                                     float(self.cf.valid_batch_size))
             # Define early stopping control
             if self.cf.early_stopping:
-                early_Stopping = Early_Stopping(self.cf)
+                early_stopping = EarlyStopping(self.cf)
             else:
-                early_Stopping = None
+                early_stopping = None
 
 
             # Train process
@@ -88,7 +88,7 @@ class SimpleTrainer(object):
                                                                                 'train_epoch_' + str(epoch) + '.json'))
 
                 # Validate epoch
-                self.validate_epoch(valid_set, valid_loader, early_Stopping, epoch)
+                self.validate_epoch(valid_set, valid_loader, early_stopping, epoch)
 
                 # Update scheduler
                 if self.model.scheduler is not None:
@@ -170,7 +170,7 @@ class SimpleTrainer(object):
             self.stats.train.acc = np.nanmean(mean_accuracy)
             self.stats.train.loss = float(train_loss.avg.cpu().data)
 
-        def validate_epoch(self,valid_set, valid_loader, early_Stopping, epoch):
+        def validate_epoch(self,valid_set, valid_loader, early_stopping, epoch):
 
             if valid_set is not None and valid_loader is not None:
                 # Set model in validation mode
@@ -180,10 +180,9 @@ class SimpleTrainer(object):
 
                 # Early stopping checking
                 if self.cf.early_stopping:
-                    early_Stopping.check(self.stats.train.loss, self.stats.val.loss, self.stats.val.mIoU,
-                                         self.stats.val.acc)
-                    if early_Stopping.stop == True:
-                        self.stop=True
+                    if early_stopping.check(self.stats.train.loss, self.stats.val.loss, self.stats.val.mIoU,
+                                            self.stats.val.acc, self.stats.val.f1score):
+                        self.stop = True
                 # Set model in training mode
                 self.model.net.train()
 
