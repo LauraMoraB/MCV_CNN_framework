@@ -52,6 +52,26 @@ The following table shows the results obtained from the different tasks. We have
 | VGG16   | From scratch         | -       |  -     |   -     | -      |  97.30  | -      |
 | MiniNet | From scratch         | 84.46   |  92.32 |  90.27  | 90.28  |  92.48  | -      |
 
+
+### Semantic Segmentation
+
+The implemented networks can be found in ```models/networks/segmentation/```:
+
+- [FCN8](papers/FCN.md)
+- [SEGNET](papers/SEGNET.md)
+- TODO: **MiniNet** extension for semantic segmentation
+
+#### Completed Tasks
+
+#### Results
+
+| Network |       Experiment     | Camvid  |        | Synthia |        | KITTI   |        |
+|---------|----------------------|---------|--------|---------|--------|---------|--------|
+|         |                      | **Val** |**Test**| **Val** |**Test**| **Val** |**Test**|
+| FCN8    | Basic(ImageNet)      |  -      | -      |  -      | -      | -       | -      |
+| SEGNET  | From scratch         | -       |  -     |   -     | -      |  -      | -      |
+| MiniNet | From scratch         | -       |  -     |  -      | -      |  -      | -      |
+
 ## Get Started
 
 ### Installation
@@ -70,7 +90,6 @@ pip install -r requirements.txt
 ```bash
 # --exp_name: directory where results are stored
 # --config_dile: file where the configuration for code is set up
-
 python3 main.py --exp_name dir_name --exp_folder ./ --config_file config/configFile.yml
 ```
 
@@ -85,6 +104,8 @@ python3 main.py --exp_name dir_name --exp_folder ./ --config_file config/configF
 
 * [VGG](papers/VGG.md)
 * [MobileNet](papers/MobileNet.md)
+* [FCN](papers/FCN.md)
+* [SegNet](papers/SEGNET.md)
 
 ## Weights Folder
 * [Link](https://drive.google.com/open?id=17LFUYLuT5L88yXYYbTEKMBGbbyaRkgea)
