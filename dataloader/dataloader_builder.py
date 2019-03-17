@@ -21,15 +21,14 @@ class Dataloader_Builder(object):
         self.model = model
         # Compose preprocesing function for dataloaders
         if self.cf.problem_type == 'detection':
-            self.img_preprocessing = standard_transforms.Compose([Random_distort(self.cf), preproces_input(self.cf),
-                                                                  standard_transforms.ToTensor()])
+            self.img_preprocessing = standard_transforms.Compose([Random_distort(self.cf), preproces_input(self.cf), standard_transforms.ToTensor()])
+            self.test_img_preprocessing = standard_transforms.Compose([preproces_input(self.cf), standard_transforms.ToTensor()])
             self.train_transformation = ComposeObjDet([CropObjDet(self.cf), RandomHorizontalFlipObjDet(self.cf)])
             self.resize = ComposeResize([Resize(self.cf)])
         else:
-            self.img_preprocessing = standard_transforms.Compose([Random_distort(self.cf), preproces_input(self.cf),
-                                                                  ToTensor()])
-            self.train_transformation = ComposeSemSeg([CropSegSem(self.cf),
-                                                       RandomHorizontalFlipSegSem(self.cf)])
+            self.img_preprocessing = standard_transforms.Compose([Random_distort(self.cf), preproces_input(self.cf), ToTensor()])
+            self.train_transformation = ComposeSemSeg([CropSegSem(self.cf), RandomHorizontalFlipSegSem(self.cf)])
+            self.test_img_preprocessing = standard_transforms.Compose([preproces_input(self.cf), ToTensor()])
 
     def build_train(self):
         if self.cf.problem_type =='segmentation':
@@ -73,5 +72,5 @@ class Dataloader_Builder(object):
     def build_predict(self):
         self.predict_set = fromFileDatasetToPredict(self.cf, self.cf.test_images_txt,
                                                self.cf.test_samples, self.cf.resize_image_test,
-                                               preprocess=self.img_preprocessing)
+                                               preprocess=self.test_img_preprocessing)
         self.predict_loader = DataLoader(self.predict_set, batch_size=1, num_workers=8)
