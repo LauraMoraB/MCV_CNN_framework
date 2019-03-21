@@ -41,29 +41,30 @@ predict_path_output         : None # None uses the default output in the experim
 
 # Image properties
 size_image_test             : null
-resize_image_train          : null #!!python/tuple [512, 1024]
-resize_image_valid          : null #!!python/tuple [512, 1024]
-resize_image_test           : null #!!python/tuple [512, 1024]
+resize_image_train          : [64, 38] #!!python/tuple [512, 1024]
+resize_image_valid          : [64, 38] #!!python/tuple [512, 1024]
+resize_image_test           : [64, 38] #!!python/tuple [512, 1024]
 crop_train                  : null #!!python/tuple [720,720] #!!python/tuple [320, 320]
 grayscale                   : False  #Use this option to convert to rgb a grascale dataset
 
 # Dataset properties
-train_images_txt: '/home/mcv/datasets/M5/segmentation/camvid/train_images.txt'
-train_gt_txt: '/home/mcv/datasets/M5/segmentation/camvid/train_labels.txt'
-valid_images_txt: '/home/mcv/datasets/M5/segmentation/camvid/val_images.txt'
-valid_gt_txt: '/home/mcv/datasets/M5/segmentation/camvid/val_labels.txt'
-test_images_txt: '/home/mcv/datasets/M5/segmentation/camvid/test_images.txt'
-test_gt_txt: '/home/mcv/datasets/M5/segmentation/camvid/test_labels.txt'
 
-labels                      : !!python/tuple ['sky', 'building', 'column_pole', 'road', 'sidewalk', 'tree', 'sign', 'fence', 'car', 'pedestrian', 'byciclist']
+train_images_txt: '/home/grupo08/M5/dataset/segmentation/synthia_rand_cityscapes/train_images.txt'
+train_gt_txt: '/home/grupo08/M5/dataset/segmentation/synthia_rand_cityscapes/train_labels.txt'
+valid_images_txt: '/home/grupo08/M5/dataset/segmentation/synthia_rand_cityscapes/val_images.txt'
+valid_gt_txt: '/home/grupo08/M5/dataset/segmentation/synthia_rand_cityscapes/val_labels.txt'
+test_images_txt: '/home/grupo08/M5/dataset/segmentation/synthia_rand_cityscapes/test_images.txt'
+test_gt_txt: '/home/grupo08/M5/dataset/segmentation/synthia_rand_cityscapes/test_labels.txt'
+
+labels                      : !!python/tuple ['road','sidewalk','building','wall','fence','pole','traffic light','traffic sign',
+                                'vegetation','terrain','sky','person','rider','car','truck','bus','train',
+                                'motorcycle','bicycle']
 map_labels                  : null
 
-num_classes                 : 11
+num_classes                 : 19
 shuffle                     : True
-void_class                  : 11
-#void id or value on the image
+void_class                  : 19
 
-# Training
 epochs                      : 50
 initial_epoch               : 1
 valid_samples_epoch         : -1     # Number of validation images used to validate an epoch
@@ -73,8 +74,8 @@ is_training                 : True
 optimizer                   : 'SGD'
 momentum1                   : 0.9
 momentum2                   : 0.99
-learning_rate               : 0.01
-learning_rate_bias          : 0.01
+learning_rate               : 0.05
+learning_rate_bias          : 0.05
 weight_decay                : 5.0e-5
 
 ### Scheduler
@@ -92,7 +93,7 @@ stop_condition: 'valid_mIoU'   # [(x)_loss','(x)_mAcc','(x)_mIoU'] x : valid or 
 patience: 5
 
 # Image preprocess
-rescale                     : 1. #0.003921569
+rescale                     : 0.1
 mean                        : !!python/tuple [127.5, 127.5, 127.5]
 #[104.00698793, 116.66876762, 122.67891434] #[103.939, 116.779, 123.68] #[0.28689553, 0.32513301, 0.28389176] #[0.37296272, 0.37296272, 0.37296272]
 std                         : !!python/tuple [1.,1.,1.]

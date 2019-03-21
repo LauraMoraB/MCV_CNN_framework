@@ -73,14 +73,15 @@ is_training                 : True
 optimizer                   : 'SGD'
 momentum1                   : 0.9
 momentum2                   : 0.99
-learning_rate               : 0.01
-learning_rate_bias          : 0.01
+learning_rate               : 0.005
+learning_rate_bias          : 0.005
 weight_decay                : 5.0e-5
 
 ### Scheduler
-scheduler                   : 'MultiStep'  #['ReduceLROnPlateau','Step','MultiStep','Exponential', None]
+scheduler                   : 'ReduceLROnPlateau'  #['ReduceLROnPlateau','Step','MultiStep','Exponential', None]
+
 decay                       : 0.1 # Learnng rate decay to apply (lr*decay)
-sched_patience              : 5   # ReduceLROnPlateau option: epoch patience without loss change until a lr decrement
+sched_patience              : 3   # ReduceLROnPlateau option: epoch patience without loss change until a lr decrement
 step_size                   : 20  # Step option: epoch counter to decrease lr
 milestone                   : [10] # MultiStep option: define different milestones (epochs) to decrease lr
 
