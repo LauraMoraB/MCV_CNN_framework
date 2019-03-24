@@ -20,6 +20,44 @@ classes_camvid = {
         11: 'void'
 }
 
+classes_kitti = {
+        0: 'sky',
+        1: 'building',
+        2: 'column_pole',
+        3: 'road',
+        4: 'sidewalk',
+        5: 'tree',
+        6: 'sign',
+        7: 'fence',
+        8: 'car',
+        9: 'pedestrian',
+        10: 'byciclist',
+        11: 'void'
+}
+
+classes_synthia = {
+        0:  'road',
+        1:  'sidewalk',
+        2:  'building',
+        3:  'wall',
+        4:  'fence',
+        5:  'pole',
+        6:  'traffic light',
+        7:  'traffic sign',
+        8:  'vegetation',
+        9:  'terrain',
+        10: 'sky',
+        11: 'person',
+        12: 'rider',
+        13: 'car',
+        14: 'truck',
+        15: 'bus',
+        16: 'train',
+        17: 'motorcycle',
+        18: 'bicycle',
+        19: 'void'
+    }
+
 def analyzeImage(image, class_dict):
     num_pixels = np.array([0]*len(class_dict))
     for index,name in class_dict.items():
@@ -38,11 +76,11 @@ def analyzeFolder(path,class_dict):
         count_apparitions += class_px_count != 0
     return class_px_count, count_apparitions, n_images
 
-def plotStats(class_px_count,class_dict):
+def plotStats(class_px_count,class_dict,imageName):
     class_labels = list(class_dict.values())
     plt.pie(class_px_count, labels=class_labels)
     plt.axis('equal')
-    plt.savefig("./pie.png")
+    plt.savefig(imageName)
 
 def printStats(class_px_count,class_dict, count_apparitions, n_images):
     total_px = np.sum(class_px_count)
@@ -71,11 +109,17 @@ def printStats(class_px_count,class_dict, count_apparitions, n_images):
 # num_pixels = analyzeImage(img,classes_camvid)
 # print(num_pixels)
 
-num_pixels, count_apparitions, n_images = analyzeFolder("/home/grupo08/M5/dataset/segmentation/camvid/test/masks/",classes_camvid)
+#num_pixels, count_apparitions, n_images = analyzeFolder("/home/grupo08/M5/dataset/segmentation/camvid/valid/masks/",classes_camvid)
+# num_pixels, count_apparitions, n_images = analyzeFolder("/home/grupo08/M5/dataset/segmentation/kitti/train/masks/",classes_kitti)
+#num_pixels, count_apparitions, n_images = analyzeFolder("/home/grupo08/M5/dataset/segmentation/synthia_rand_cityscapes/test/masks/",classes_synthia)
+#num_pixels, count_apparitions, n_images = analyzeFolder("/home/grupo08/M5/executions/sem_seg_camvid/sem_seg_camvid/predictions/",classes_camvid)
+#num_pixels, count_apparitions, n_images = analyzeFolder("/home/grupo08/M5/executions/sem_seg_kitty/CamVid_SemSeg_test1_kitty/predictions/", classes_kitti)
+
 print(num_pixels)
 print("APPARITION:", count_apparitions)
-plotStats(num_pixels,classes_camvid)
-printStats(num_pixels,classes_camvid, count_apparitions, n_images)
+printStats(num_pixels,classes_kitti, count_apparitions, n_images)
+plotStats(num_pixels,classes_kitti,"./plotPREDICTIONS_Kitti.png")
+
 
 
 
