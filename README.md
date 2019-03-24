@@ -20,37 +20,10 @@ The goal of this project is to learn the basic concepts and techniques to build 
 
 This repository creates a PyTorch based framework to achieve three goals:
 
-* [Object Recognition](#Object-recognition)
-* [Object Detection](#Object-detection)
-* [Semantic Segmentation](#Semantic-segmentation)  
+* [Object Recognition](papers/object_recognition.md)
+* [Object Detection](papers/object_detection.md)
+* [Semantic Segmentation](papers/semantic_segmentation.md)  
 
-### Object Recognition
-
-Two networks have been created, which can be found in: ```models/networks/classification/```
-
-- [VGG16](papers/VGG.md)
-- **MiniNet**: Implemented network that stands for a convolutional neural network with low number of parameters.  
-
-
-#### Completed Tasks
-
-|Task A - Run Code   | Task B - Train with KITTI  |  Task C - New Architechtures  | Task E - Documentation | 
-|---|---|---|---|
-| Analyse Datasets  | FineTune  | Implement MiniNet  | [Report](https://www.overleaf.com/read/jdhgqqrhcgjj) |
-| Fine-Tune VGG16 for TT100K and BelgiumTSC | Train from Scratch  |   | [Slides](https://docs.google.com/presentation/d/1xWj9vOmV8CkUfDMC7wwpK70tqYfDpNb6f2E0ssXnQNs/edit?usp=sharing)|
-
-
-#### Results 
-
-The following table shows the results obtained from the different tasks. We have used two networks, the well known **VGG16** and our own CNN, **MiniNet**. The experiments have been done using the following datasets: [TT100k](https://cg.cs.tsinghua.edu.cn/traffic-sign/), [BelgiumTSC](https://btsd.ethz.ch/shareddata/) and [KITTI](http://www.cvlibs.net/datasets/kitti/).
-
-| Network |       Experiment     | TT100K  |        | Belgium |        | KITTI   |        |
-|---------|----------------------|---------|--------|---------|--------|---------|--------|
-|         |                      | **Val** |**Test**| **Val** |**Test**| **Val** |**Test**|
-| VGG16   | Basic(ImageNet)      | 89,32   |  96.06 |  96.22  | 95.22  |  98.37  | -      |
-| VGG16   | FineTune with TT100K | -       |  -     |  96.39  | 96.39  |  97.84  | -      |
-| VGG16   | From scratch         | -       |  -     |   -     | -      |  97.30  | -      |
-| MiniNet | From scratch         | 84.46   |  92.32 |  90.27  | 90.28  |  92.48  | -      |
 
 ## Get Started
 
@@ -70,21 +43,27 @@ pip install -r requirements.txt
 ```bash
 # --exp_name: directory where results are stored
 # --config_dile: file where the configuration for code is set up
-
 python3 main.py --exp_name dir_name --exp_folder ./ --config_file config/configFile.yml
 ```
 
 
 ## Report
 
-[Google Slide Presentation](https://docs.google.com/presentation/d/1xWj9vOmV8CkUfDMC7wwpK70tqYfDpNb6f2E0ssXnQNs/edit?usp=sharing)
+### Object Recognition Slides
+[Google Slides Presentation](https://docs.google.com/presentation/d/1xWj9vOmV8CkUfDMC7wwpK70tqYfDpNb6f2E0ssXnQNs/edit?usp=sharing)
 
+### Semantic Segmentation Slides
+[Google Slides Presentation](https://docs.google.com/presentation/d/1FM0sqHXvJMrfRbRdjOkyXKsVXi6Fi8xuY1Yegxxsydo/edit?usp=sharing)
+
+### Complete Report
 [Overleaf Read-Access link](https://www.overleaf.com/read/jdhgqqrhcgjj)
 
 ## State of the Art publications
 
 * [VGG](papers/VGG.md)
 * [MobileNet](papers/MobileNet.md)
+* [FCN](papers/FCN.md)
+* [SegNet](papers/SegNet.md)
 
 ## Weights Folder
 * [Link](https://drive.google.com/open?id=17LFUYLuT5L88yXYYbTEKMBGbbyaRkgea)
