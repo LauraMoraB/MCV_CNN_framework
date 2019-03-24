@@ -3,7 +3,7 @@
 The implemented networks can be found in ```models/networks/segmentation/```:
 
 - [FCN8](papers/FCN.md)
-- [SEGNET](papers/SEGNET.md)
+- [SEGNET](papers/SegNet.md)
 
 ## Completed Tasks
 
