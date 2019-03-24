@@ -2,14 +2,14 @@
 
 The implemented networks can be found in ```models/networks/segmentation/```:
 
-- [FCN8](papers/FCN.md)
-- [SEGNET](papers/SegNet.md)
+- [FCN8](FCN.md)
+- [SEGNET](SegNet.md)
 
 ## Completed Tasks
 
 - [x] Task1: Analyse Datasets: Camvid, CityScapes, Kitti
 - [x] Task1: Train FCN8 with Camvid
-- [x] Task2: Read papers [FCN8](papers/FCN.md) and [SEGNET](papers/SEGNET.md)
+- [x] Task2: Read papers [FCN8](papers/FCN.md) and [SEGNET](SegNet.md)
 - [x] Task3: Train SegNet with Camvid: using pretrained VGG16
 - [x] Task4: Train FCN8 and SegNet for: Synthis-CityScapes and Kitti
 - [x] Task5: Boost performance in both Networks
