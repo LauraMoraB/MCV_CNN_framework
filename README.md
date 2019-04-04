@@ -64,6 +64,8 @@ python3 main.py --exp_name dir_name --exp_folder ./ --config_file config/configF
 * [MobileNet](papers/MobileNet.md)
 * [FCN](papers/FCN.md)
 * [SegNet](papers/SegNet.md)
+* [FRCNN](papers/FasterRCNN.md)
+* [YOLO](papers/YOLO.md)
 
 ## Weights Folder
 * [Link](https://drive.google.com/open?id=17LFUYLuT5L88yXYYbTEKMBGbbyaRkgea)
