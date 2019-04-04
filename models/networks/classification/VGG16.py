@@ -9,7 +9,7 @@ class VGG16(Net):
 
     def __init__(self, cf, num_classes=21, pretrained=False, net_name='vgg16'):
         super(VGG16, self).__init__(cf)
-        print("Startuing VGG!")
+        print("Starting VGG!")
 
         self.url = 'http://datasets.cvc.uab.es/models/pytorch/basic_vgg16.pth'
         self.pretrained = pretrained
