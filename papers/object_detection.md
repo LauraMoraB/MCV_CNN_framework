@@ -1,4 +1,4 @@
-# Semantic Segmentation
+# Object Detection 
 
 A new framework using faster-RCNN network has been integrated, which can be found in: ```object_detection/faster_rcnn.pytorch/```
 
