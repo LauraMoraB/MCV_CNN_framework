@@ -65,9 +65,31 @@ The framework requires COCO and PASCAL to be installed in order to work properly
 
 * **COCO**: Download from the respository [COCOAPI](https://github.com/pdollar/coco) and store in folder `object_detection/faster-rcnn.pytorch/data/`
 
-* **UDACITY**
-
-    **TODO** -- podem posar el que hem necessitat fer per incorporar-lo
+* **UDACITY and other nonVoc Datasets**
+    * First make a folder inside of the data folder with the name of the dataset.
+    * Create a folder called annotations_cache
+    * Create a folder called results
+    * Create a folder called nameOfDatasetYear
+    * Inside the nameOfDatasetYear folder, create the following structure:
+     ```Bash
+     /Annotations 
+     /ImageSets/Layout 
+     /ImageSets/Main 
+     /ImageSets/Segmentation 
+     /JPEGImages 
+     /test 
+     /train 
+     /valid 
+     ```
+     * Copy the images and the txt files of the dataset to the test, train and valid folders.
+     * Copy all the images to the JPEGImages folder
+     * Copy the convert_to_voc.py file to the `/nameofDataset/nameOfDatasetYear` and execute it with python
+     * Clone `/lib/datasets/pascal_voc.py` and make the modifications to adapt it to your dataset
+     * Go to `/lib/datasets/factory.py` and add the cll to your clone of the `/lib/datasets/pascal_voc.py`
+     * Add the name of dataset to the options in the `/test_net.py` and `/trainval_net.py`
+     
+    
+    
 
 **3. Pretrained Models**
 
