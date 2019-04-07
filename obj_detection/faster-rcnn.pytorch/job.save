@@ -1,0 +1,16 @@
+#!/bin/bash
+#SBATCH -n 4 # Number of cores
+#SBATCH --mem 30G # 20GB solicitados.
+#SBATCH -p mhigh,mlow # or mlow Partition to submit to
+#SBATCH --gres gpu:1 # Para pedir Pascales MAX 8
+#SBATCH -o ./out/%x_%u_%j.out # File to which STDOUT will be written
+#SBATCH -e ./out/%x_%u_%j.err # File to which STDERR will be written
+#SBATCH --job-name=siameses_lfw
+
+nvidia-smi
+export CUDA_LAUNCH_BLOCKING=1
+LEARNING
+python trainval_net.py --dataset pascal_voc --net vgg16 \
+                       --bs 24 --nw 1 \
+                       --lr 1e-3 --lr_decay_step $DECAY_STEP \
+                       --cuda --mGPUs
