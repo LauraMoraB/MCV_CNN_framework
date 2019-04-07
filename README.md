@@ -27,6 +27,7 @@ This repository creates a PyTorch based framework to achieve three goals:
 
 ## Get Started
 
+### **Object Recognition and Semantic Segmentation**
 ### Installation
 
 Environment Set Up:
@@ -45,15 +46,87 @@ pip install -r requirements.txt
 # --config_dile: file where the configuration for code is set up
 python3 main.py --exp_name dir_name --exp_folder ./ --config_file config/configFile.yml
 ```
+### **Object Detection**
 
+### Installation
+
+In order to execute the framework for object detection, different steps have to be followed. First, see source [repository](https://github.com/jwyang/faster-rcnn.pytorch/tree/pytorch-1.0)
+
+**1. Prerequisits**
+- Python 3.6
+- Pytorch 1.0
+- Cuda 8 or hihger
+
+**2. Data preparation**
+
+The framework requires COCO and PASCAL to be installed in order to work properly
+
+* **PASCAL_VOC 07+12**: Please follow the instructions in [py-faster-rcnn](https://github.com/rbgirshick/py-faster-rcnn#beyond-the-demo-installation-for-training-and-testing-models) to prepare VOC datasets. After downloading the data, create softlinks in the folder `object_detection/faster-rcnn.pytorch/data/`.
+
+* **COCO**: Download from the respository [COCOAPI](https://github.com/pdollar/coco) and store in folder `object_detection/faster-rcnn.pytorch/data/`
+
+* **UDACITY**
+
+    **TODO** -- podem posar el que hem necessitat fer per incorporar-lo
+
+**3. Pretrained Models**
+
+The framework uses VGG16 or Restnet101 as baseline architectures. The weights of the networks, trained with Caffe, must be stored in the folder `object_detection/framework/pretrained_models/`
+
+Link to download the models from the source repository:
+
+* VGG16: [Dropbox](https://www.dropbox.com/s/s3brpk0bdq60nyb/vgg16_caffe.pth?dl=0)
+
+* ResNet101: [Dropbox](https://www.dropbox.com/s/iev3tkbz5wyyuz9/resnet101_caffe.pth?dl=0)
+
+**4. Compilation**
+```bash
+pip install -r requirements.txt
+
+cd lib
+python setup.py build develop
+```
+### Run the code
+
+**Train**
+
+```bash
+LEARNING_RATE=lr
+BATCH_SIZE=batchSize
+DECAY_STEP=decayStep
+DATASET=udacity_voc #udacity_voc or pascal_voc
+NETWORK=res101 #res101 or vgg16 
+EPOCHS=numberEpochs
+
+python3 trainval_net.py --dataset $DATASET --net $NETWORK \
+                       --bs $BATCH_SIZE --nw 1 \
+                       --lr $LEARNING_RATE --lr_decay_step $DECAY_STEP \
+                       --cuda --mGPUs --epochs $EPOCHS
+
+```
+
+**Test**
+```bash
+python3 test_net.py --dataset  $DATASET --net $NETWORK \
+                       --cuda --mGPUs --checksession $CHECK_SESSION --checkepoch $CHECK_EPOCH --checkpoint $CHECK_MODEL
+```
+
+**Demo**
+
+Script which loads the trained model and saves the result image detection in the folder `object_detection/framework/images/`
+
+```bash
+python demo.py --net res101 \
+               --checksession $SESSION --checkepoch $EPOCH --checkpoint $CHECKPOINT --cuda --load_dir models/
+
+```
 
 ## Report
 
-### Object Recognition Slides
-[Google Slides Presentation](https://docs.google.com/presentation/d/1xWj9vOmV8CkUfDMC7wwpK70tqYfDpNb6f2E0ssXnQNs/edit?usp=sharing)
+|Object Recognition | Semantic Segmentation | Object Detection |
+|-------------------| ----------------------| -----------------|
+|[Presentation](https://docs.google.com/presentation/d/1xWj9vOmV8CkUfDMC7wwpK70tqYfDpNb6f2E0ssXnQNs/edit?usp=sharing)|[Presentation](https://docs.google.com/presentation/d/1FM0sqHXvJMrfRbRdjOkyXKsVXi6Fi8xuY1Yegxxsydo/edit?usp=sharing)|[Presentation](https://docs.google.com/presentation/d/1KHaQK2LPUhY63ut-xJkDmVtclmcCocw21XxlizU6IA4/edit?usp=sharing)|
 
-### Semantic Segmentation Slides
-[Google Slides Presentation](https://docs.google.com/presentation/d/1FM0sqHXvJMrfRbRdjOkyXKsVXi6Fi8xuY1Yegxxsydo/edit?usp=sharing)
 
 ### Complete Report
 [Overleaf Read-Access link](https://www.overleaf.com/read/jdhgqqrhcgjj)
